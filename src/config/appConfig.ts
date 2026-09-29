@@ -1,24 +1,23 @@
 /**
- * Konfigurasi Utama Layanan Jangan Panik! (Logo: Jangan Panik Dulu / JP)
+ * Konfigurasi Utama Layanan Jangan Panik Dulu (Logo: JP)
  * Seluruh data dan format WhatsApp terpusat di file ini.
  */
 
 export const APP_CONFIG = {
-  brandName: 'Jangan Panik Dulu',
-  shortLogo: 'JP',
+  brandName: 'Jangan Panik!',
+  shortLogo: 'JP!',
   tagline: 'Kamu cerita. Kami bantu bicara.',
-  // Nomor WhatsApp Baru: 085111575701 -> 6285111575701
+  // Nomor WhatsApp Admin (format internasional tanpa '+' atau spasi)
   whatsappNumber: '6285111575701',
-  supportEmail: 'bantuan@janganpanik.id',
   operationalHours: 'Senin - Minggu: 08.00 - 21.00 WIB',
+  responseEstimate: 'Dibalas < 15 menit',
   address: 'Jakarta, Indonesia',
   disclaimerText:
-    'Layanan ini merupakan pendampingan komunikasi dan mediasi. Tidak menjamin penghapusan utang atau hasil negosiasi tertentu.',
+    'Jangan Panik! menyediakan layanan informasi, pendampingan komunikasi, dan mediasi. Layanan ini tidak menghapus kewajiban pembayaran dan tidak menjamin hasil tertentu. Proses mediasi bergantung pada kesediaan pihak-pihak yang terlibat.',
 };
 
 export interface FormSubmissionData {
   nama: string;
-  whatsapp: string;
   aplikasi: string;
   lamaKeterlambatan: string;
   jenisMasalah: string;
@@ -26,7 +25,7 @@ export interface FormSubmissionData {
 }
 
 /**
- * Pilihan durasi keterlambatan untuk dropdown
+ * Pilihan durasi keterlambatan untuk dropdown / scrolldown
  */
 export const DELAY_OPTIONS = [
   'Belum terlambat (antisipasi)',
@@ -38,84 +37,15 @@ export const DELAY_OPTIONS = [
 ];
 
 /**
- * Pilihan jenis masalah di form
+ * Pilihan jenis masalah di form (bagian kesulitan pembayaran dihapus sesuai request)
  */
 export const ISSUE_OPTIONS = [
-  'Penagihan',
-  'Kunjungan lapangan',
+  'Penagihan telepon / pesan',
+  'Kunjungan lapangan / Kolektor',
   'Perselisihan komunikasi',
-  'Kesulitan membicarakan pembayaran',
   'Lainnya',
 ];
 
-/**
- * 4 Masalah Ringkas & Langsung ke Inti
- */
-export const COMPACT_PROBLEMS = [
-  'Banyak dihubungi pihak penagihan',
-  'Bingung harus menjawab apa',
-  'Ada rencana kunjungan lapangan',
-  'Kesulitan membicarakan kondisi pembayaran',
-];
-
-/**
- * 3 Langkah Cara Kerja Sederhana
- */
-export const WORKFLOW_3_STEPS = [
-  {
-    step: '1',
-    title: 'Ceritakan',
-    desc: 'Isi kondisi dan masalah kamu.',
-  },
-  {
-    step: '2',
-    title: 'Kami pelajari',
-    desc: 'Kami memahami situasi dan komunikasi yang terjadi.',
-  },
-  {
-    step: '3',
-    title: 'Kami bantu mediasi',
-    desc: 'Kami membantu menjembatani komunikasi dengan pihak penagihan.',
-  },
-];
-
-/**
- * 3 FAQ Singkat & Padat
- */
-export const FAQ_3_ITEMS = [
-  {
-    question: 'Apakah ini jasa pelunasan utang?',
-    answer: 'Tidak. Layanan ini berfokus pada pendampingan komunikasi dan mediasi.',
-  },
-  {
-    question: 'Apakah utang saya bisa dihapus?',
-    answer: 'Tidak ada jaminan penghapusan utang. Hasil mediasi bergantung pada kondisi kasus dan pihak terkait.',
-  },
-  {
-    question: 'Apakah pihak penagihan pasti mau mengikuti mediasi?',
-    answer: 'Tidak selalu. Kami membantu menjembatani komunikasi sesuai kondisi kasus.',
-  },
-];
-
-/**
- * Format Pesan WhatsApp Spesifik Sesuai Permintaan:
- * 
- * Halo, saya ingin meminta bantuan mediasi penagihan.
- * 
- * 📌 DATA SAYA
- * Nama: [Nama]
- * Aplikasi/Pemberi Pinjaman: [Aplikasi]
- * Keterlambatan: [Keterlambatan]
- * Jenis Masalah: [Jenis Masalah]
- * 
- * 📝 CERITA SINGKAT
- * [Cerita]
- * 
- * 🤝 BANTUAN
- * Saya ingin mendapatkan bantuan untuk menjembatani komunikasi dengan pihak penagihan.
- * 
- * Terima kasih.
- */
 export function generateWhatsAppMessage(data: FormSubmissionData): string {
   const nama = data.nama.trim() || '-';
   const aplikasi = data.aplikasi.trim() || '-';
@@ -129,13 +59,10 @@ export function generateWhatsAppMessage(data: FormSubmissionData): string {
 Nama: ${nama}
 Aplikasi/Pemberi Pinjaman: ${aplikasi}
 Keterlambatan: ${keterlambatan}
-Jenis Masalah: ${jenisMasalah}
+Jenis masalah: ${jenisMasalah}
 
 📝 CERITA SINGKAT
 ${cerita}
-
-🤝 BANTUAN
-Saya ingin mendapatkan bantuan untuk menjembatani komunikasi dengan pihak penagihan.
 
 Terima kasih.`;
 }
@@ -147,9 +74,112 @@ export function buildWhatsAppUrl(message?: string): string {
   const phone = APP_CONFIG.whatsappNumber;
   if (!message) {
     const defaultMsg = encodeURIComponent(
-      'Halo, saya ingin meminta bantuan mediasi penagihan.'
+      'Halo, saya ingin meminta bantuan mediasi untuk menjembatani komunikasi dengan pihak penagihan.'
     );
     return `https://wa.me/${phone}?text=${defaultMsg}`;
   }
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * 4 Masalah yang bisa dibantu
+ */
+export const PROBLEMS_WE_HELP = [
+  {
+    id: 'penagihan',
+    title: 'Penagihan',
+    desc: 'Mendapat telepon atau pesan penagihan dan bingung harus merespons bagaimana?',
+    iconTheme: 'blue' as const,
+  },
+  {
+    id: 'kunjungan-lapangan',
+    title: 'Kunjungan Lapangan',
+    desc: 'Mendapat informasi mengenai kemungkinan kunjungan dan membutuhkan pendampingan komunikasi?',
+    iconTheme: 'amber' as const,
+  },
+  {
+    id: 'kesulitan-pembayaran',
+    title: 'Kesulitan Pembayaran',
+    desc: 'Sedang mengalami kesulitan membayar dan ingin menyampaikan kondisi kepada pihak terkait?',
+    iconTheme: 'cyan' as const,
+  },
+  {
+    id: 'perselisihan-komunikasi',
+    title: 'Perselisihan Komunikasi',
+    desc: 'Terjadi masalah dalam komunikasi antara peminjam dan pihak penagihan?',
+    iconTheme: 'navy' as const,
+  },
+];
+
+export const COMPACT_PROBLEMS = PROBLEMS_WE_HELP.map((problem) => problem.title);
+
+/**
+ * 4 Langkah Cara Kerja
+ */
+export const WORKFLOW_4_STEPS = [
+  {
+    step: '01',
+    title: 'Ceritakan',
+    desc: 'Sampaikan kondisi dan masalah yang sedang kamu hadapi.',
+    theme: 'blue' as const,
+  },
+  {
+    step: '02',
+    title: 'Kami Pelajari',
+    desc: 'Kami memahami situasi dan inti masalahnya.',
+    theme: 'cyan' as const,
+  },
+  {
+    step: '03',
+    title: 'Mediasi',
+    desc: 'Kami membantu menjembatani komunikasi dengan pihak terkait apabila memungkinkan.',
+    theme: 'navy' as const,
+  },
+  {
+    step: '04',
+    title: 'Titik Temu',
+    desc: 'Komunikasi diarahkan untuk mencari solusi yang dapat dibicarakan oleh para pihak.',
+    theme: 'green' as const,
+  },
+];
+
+export const WORKFLOW_3_STEPS = WORKFLOW_4_STEPS.slice(0, 3);
+
+/**
+ * 4 Poin Layanan Mediasi
+ */
+export const MEDIATION_SERVICES = [
+  'Membantu menyusun komunikasi',
+  'Membantu menyampaikan kondisi peminjam',
+  'Membantu menjembatani komunikasi dengan pihak penagihan',
+  'Membantu merangkum hasil komunikasi',
+];
+
+/**
+ * 5 FAQ Final
+ */
+export const FAQ_ITEMS = [
+  {
+    question: 'Saya bingung harus menghadapi kolektor bagaimana. Bisa dibantu?',
+    answer: 'Bisa. Ceritakan kondisi kamu, lalu kami bantu memahami situasinya dan menjembatani komunikasinya dengan pihak penagihan.',
+  },
+  {
+    question: 'Kalau kolektor menghubungi saya terus, bagaimana?',
+    answer: 'Kami bantu menangani komunikasi sesuai ruang lingkup layanan, sehingga kamu tidak perlu menghadapi prosesnya sendirian.',
+  },
+  {
+    question: 'Saya punya beberapa aplikasi. Bisa ditangani sekaligus?',
+    answer: 'Bisa. Kami menyediakan pendampingan untuk beberapa aplikasi dalam satu layanan.',
+  },
+  {
+    question: 'Apa yang saya dapat setelah menggunakan layanan ini?',
+    answer: 'Kamu mendapatkan pendampingan komunikasi, bantuan menyusun respons, dan proses mediasi yang lebih terarah.',
+  },
+  {
+    question: 'Apakah saya tetap memiliki kewajiban pembayaran?',
+    answer: 'Pendampingan mediasi tidak menghapus kewajiban pembayaran yang berlaku.',
+  },
+];
+
+export const FAQ_5_ITEMS = FAQ_ITEMS;
+export const FAQ_LIST = FAQ_ITEMS;

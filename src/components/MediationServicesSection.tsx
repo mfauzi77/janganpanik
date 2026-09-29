@@ -9,7 +9,7 @@ export const MediationServicesSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F2A43] tracking-tight">
-            Apa yang kami bantu?
+            Layanan kami
           </h2>
         </div>
 
@@ -26,13 +26,6 @@ export const MediationServicesSection: React.FC = () => {
               <p className="text-sm sm:text-base text-[#64748B] leading-relaxed">
                 Membantu menjembatani komunikasi dengan pihak penagihan, menyusun komunikasi, dan mendampingi proses sesuai kondisi kasus.
               </p>
-              
-              {/* Pricing Tag */}
-              <div className="pt-2">
-                <span className="inline-block px-3.5 py-1.5 bg-blue-50 border border-blue-200/80 text-[#2563EB] font-bold text-xs sm:text-sm rounded-lg">
-                  Mulai dari Rp2.500.000 / 3 aplikasi
-                </span>
-              </div>
             </div>
           </div>
         </div>

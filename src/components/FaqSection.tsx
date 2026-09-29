@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { FAQ_3_ITEMS } from '../config/appConfig';
+import { FAQ_5_ITEMS } from '../config/appConfig';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -22,7 +22,7 @@ export const FaqSection: React.FC = () => {
 
         {/* 3 FAQ Accordions */}
         <div className="space-y-3">
-          {FAQ_3_ITEMS.map((item, idx) => {
+          {FAQ_5_ITEMS.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
