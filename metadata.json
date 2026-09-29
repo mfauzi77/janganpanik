@@ -1,0 +1,6 @@
+{
+  "name": "Jangan Panik Dulu - Layanan Mediasi Penagihan Pinjaman",
+  "description": "Layanan pendampingan komunikasi dan mediasi terarah antara peminjam dan pihak penagihan. Kamu cerita, kami bantu bicara.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
