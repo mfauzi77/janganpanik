@@ -8,7 +8,7 @@ export const APP_CONFIG = {
   shortLogo: 'JP!',
   tagline: 'Kamu cerita. Kami bantu bicara.',
   // Nomor WhatsApp Admin (format internasional tanpa '+' atau spasi)
-  whatsappNumber: '628111575701',
+  whatsappNumber: '6285111575701',
   operationalHours: 'Senin - Minggu: 08.00 - 21.00 WIB',
   responseEstimate: 'Dibalas < 15 menit',
   address: 'Jakarta, Indonesia',
