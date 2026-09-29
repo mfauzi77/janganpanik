@@ -1,6 +1,5 @@
 import React from 'react';
-import { MessageSquare, ArrowRight } from 'lucide-react';
-import { HeroIllustration } from './HeroIllustration';
+import { ArrowRight, ShieldCheck, MessageSquare } from 'lucide-react';
 
 interface HeroProps {
   onOpenForm: () => void;
@@ -8,60 +7,57 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenForm }) => {
   return (
-    <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 bg-white overflow-hidden">
-      {/* Subtle radial ambient gradients (not full background) */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[720px] h-[340px] bg-gradient-to-b from-[#2563EB]/5 via-[#06B6D4]/5 to-transparent blur-3xl pointer-events-none -z-10" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+    <section className="relative pt-12 pb-14 sm:pt-16 sm:pb-20 bg-white border-b border-[#E2E8F0]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
-        {/* Subtitle Badge with Cyan Accent */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 mb-5">
-          <span className="w-2 h-2 rounded-full bg-[#06B6D4] animate-pulse" />
-          <span className="text-xs font-bold text-[#0F2A43] tracking-wide">
-            Layanan Pendampingan & Mediasi Penagihan
-          </span>
+        {/* Subtle badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#2563EB] text-xs font-semibold mb-6">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#2563EB]" />
+          <span>Layanan Pendampingan Komunikasi & Mediasi</span>
         </div>
 
-        {/* Headline with Targeted Color Accent */}
+        {/* Headline */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F2A43] tracking-tight leading-[1.15]">
-          Bingung Menghadapi{' '}
-          <span className="text-[#2563EB] inline-block relative">
-            Penagihan?
-            <svg
-              className="absolute -bottom-1.5 left-0 w-full h-2 text-[#06B6D4]/40"
-              viewBox="0 0 100 8"
-              preserveAspectRatio="none"
-            >
-              <path d="M0,5 Q50,0 100,5" fill="transparent" stroke="currentColor" strokeWidth="3" />
-            </svg>
-          </span>
+          Bingung Menghadapi <span className="text-[#2563EB]">Penagihan?</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="mt-5 text-base sm:text-xl lg:text-2xl text-[#64748B] max-w-3xl mx-auto leading-relaxed">
-          Serahkan masalah komunikasinya kepada kami. Kami membantu menjembatani peminjam dan pihak penagihan melalui proses mediasi yang lebih terarah.
+        <p className="mt-4 text-lg sm:text-xl text-[#64748B] font-medium max-w-2xl mx-auto leading-relaxed">
+          Kami bantu menjembatani komunikasi dengan pihak penagihan.
         </p>
 
-        {/* CTA Utama (Primary Blue CTA with White text) */}
-        <div className="mt-8 flex flex-col items-center justify-center">
+        {/* CTA Utama */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={onOpenForm}
-            className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-base sm:text-lg rounded-xl shadow-lg shadow-blue-600/25 hover:shadow-xl transition-all duration-200 cursor-pointer flex items-center justify-center gap-3 transform hover:-translate-y-0.5 active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-4 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-base sm:text-lg rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2.5 cursor-pointer"
           >
-            <MessageSquare className="w-5 h-5 text-white" />
             <span>💬 Mulai Mediasi</span>
-            <ArrowRight className="w-5 h-5 text-blue-200" />
+            <ArrowRight className="w-5 h-5" />
           </button>
-
-          {/* Kalimat kecil pendukung */}
-          <p className="mt-3.5 text-xs sm:text-sm text-[#64748B] font-medium">
-            Kamu ceritakan masalahnya. Kami bantu komunikasinya.
-          </p>
         </div>
 
-        {/* Visual Diagram Jalur Mediasi Singkat */}
-        <div className="mt-12 sm:mt-14">
-          <HeroIllustration />
+        {/* Small Note */}
+        <p className="mt-4 text-xs sm:text-sm text-[#64748B]">
+          Pendampingan komunikasi dan mediasi sesuai kondisi kasus.
+        </p>
+
+        {/* Minimal Communication Flow Visual */}
+        <div className="mt-10 pt-6 border-t border-slate-100 max-w-xl mx-auto">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 text-xs font-semibold text-[#0F2A43]">
+            <div className="bg-[#F8FAFC] border border-[#E2E8F0] px-3 py-1.5 rounded-lg">
+              Peminjam (Kamu)
+            </div>
+            <ArrowRight className="w-4 h-4 text-[#06B6D4] shrink-0" />
+            <div className="bg-[#0F2A43] text-white px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span>Mediator Netral</span>
+            </div>
+            <ArrowRight className="w-4 h-4 text-[#06B6D4] shrink-0" />
+            <div className="bg-[#F8FAFC] border border-[#E2E8F0] px-3 py-1.5 rounded-lg text-[#64748B]">
+              Pihak Penagihan
+            </div>
+          </div>
         </div>
 
       </div>

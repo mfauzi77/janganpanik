@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { APP_CONFIG } from '../config/appConfig';
 
 interface NavbarProps {
@@ -9,138 +9,105 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenForm }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (targetId?: string) => {
+  const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
-    if (!targetId) return;
-
-    if (targetId === 'form') {
-      onOpenForm();
-      return;
-    }
-
-    const elem = document.getElementById(targetId);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E2E8F0]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          
-          {/* Logo Brand */}
-          <a href="#" className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-lg bg-[#0F2A43] text-cyan-300 flex items-center justify-center font-black text-sm shadow-xs">
-              {APP_CONFIG.shortLogo}
-            </span>
-            <span className="text-base sm:text-lg font-black text-[#0F2A43] tracking-tight">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        
+        {/* Brand Logo: Jangan Panik Dulu */}
+        <a href="#" className="flex items-center gap-2.5 group">
+          <div className="w-9 h-9 rounded-xl bg-[#0F2A43] text-white flex items-center justify-center font-black text-sm tracking-tight shadow-sm group-hover:bg-[#2563EB] transition-colors">
+            {APP_CONFIG.shortLogo}
+          </div>
+          <div className="flex flex-col">
+            <span className="font-extrabold text-[#0F2A43] text-base leading-tight tracking-tight">
               {APP_CONFIG.brandName}
             </span>
-          </a>
-
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-700">
-            <a
-              href="#"
-              className="hover:text-[#2563EB] transition-colors"
-            >
-              Beranda
-            </a>
-            <a
-              href="#masalah"
-              className="hover:text-[#2563EB] transition-colors"
-            >
-              Masalah
-            </a>
-            <a
-              href="#cara-kerja"
-              className="hover:text-[#2563EB] transition-colors"
-            >
-              Cara Kerja
-            </a>
-            <a
-              href="#layanan"
-              className="hover:text-[#2563EB] transition-colors"
-            >
-              Layanan
-            </a>
-            <a
-              href="#faq"
-              className="hover:text-[#2563EB] transition-colors"
-            >
-              FAQ
-            </a>
-          </nav>
-
-          {/* Desktop Single CTA */}
-          <div className="hidden md:flex items-center">
-            <button
-              onClick={onOpenForm}
-              className="px-5 py-2.5 bg-[#0F2A43] hover:bg-[#163B5D] text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
-            >
-              Mulai Mediasi
-            </button>
+            <span className="text-[10px] text-[#64748B] font-medium leading-none">
+              Mediasi Penagihan
+            </span>
           </div>
+        </a>
 
-          {/* Mobile Menu Toggle Button */}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#64748B]">
+          <button
+            onClick={() => scrollTo('layanan')}
+            className="hover:text-[#0F2A43] transition-colors cursor-pointer"
+          >
+            Layanan
+          </button>
+          <button
+            onClick={() => scrollTo('cara-kerja')}
+            className="hover:text-[#0F2A43] transition-colors cursor-pointer"
+          >
+            Cara Kerja
+          </button>
+          <button
+            onClick={() => scrollTo('faq')}
+            className="hover:text-[#0F2A43] transition-colors cursor-pointer"
+          >
+            FAQ
+          </button>
+        </nav>
+
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center">
+          <button
+            onClick={onOpenForm}
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-semibold text-sm rounded-lg shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+          >
+            <span>Mulai Mediasi</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={onOpenForm}
+            className="px-3 py-1.5 bg-[#2563EB] text-white text-xs font-bold rounded-lg shadow-sm"
+          >
+            Mulai Mediasi
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 cursor-pointer"
-            aria-label="Toggle menu"
+            className="p-1.5 text-[#0F2A43] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
+            aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-
         </div>
+
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-3">
-          <a
-            href="#"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm font-semibold text-slate-800 py-1"
-          >
-            Beranda
-          </a>
-          <a
-            href="#masalah"
-            onClick={() => handleNavClick('masalah')}
-            className="block text-sm font-semibold text-slate-800 py-1"
-          >
-            Masalah
-          </a>
-          <a
-            href="#cara-kerja"
-            onClick={() => handleNavClick('cara-kerja')}
-            className="block text-sm font-semibold text-slate-800 py-1"
-          >
-            Cara Kerja
-          </a>
-          <a
-            href="#layanan"
-            onClick={() => handleNavClick('layanan')}
-            className="block text-sm font-semibold text-slate-800 py-1"
+        <div className="md:hidden border-b border-[#E2E8F0] bg-white px-4 py-3 space-y-2">
+          <button
+            onClick={() => scrollTo('layanan')}
+            className="block w-full text-left py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB]"
           >
             Layanan
-          </a>
-          <a
-            href="#faq"
-            onClick={() => handleNavClick('faq')}
-            className="block text-sm font-semibold text-slate-800 py-1"
+          </button>
+          <button
+            onClick={() => scrollTo('cara-kerja')}
+            className="block w-full text-left py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB]"
+          >
+            Cara Kerja
+          </button>
+          <button
+            onClick={() => scrollTo('faq')}
+            className="block w-full text-left py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB]"
           >
             FAQ
-          </a>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenForm();
-            }}
-            className="w-full mt-2 py-3 bg-[#0F2A43] text-white text-center text-sm font-bold rounded-xl"
-          >
-            Mulai Mediasi
           </button>
         </div>
       )}

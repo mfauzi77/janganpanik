@@ -1,70 +1,49 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { FAQ_ITEMS } from '../config/appConfig';
+import { FAQ_3_ITEMS } from '../config/appConfig';
 
 export const FaqSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const toggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-white border-t border-[#E2E8F0]">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-12 sm:py-16 bg-[#F8FAFC] border-t border-[#E2E8F0]">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
-          <span className="text-xs font-bold text-[#2563EB] tracking-wider uppercase">
-            Transparansi Layanan
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0F2A43] tracking-tight mt-1">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F2A43] tracking-tight">
             Pertanyaan yang Sering Diajukan
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#64748B]">
-            Pahami batasan dan cara kerja pendampingan mediasi dengan jelas.
-          </p>
         </div>
 
-        {/* 5 Accordions (White with border, Active state: border blue & very light blue bg) */}
-        <div className="space-y-3.5">
-          {FAQ_ITEMS.map((item, index) => {
-            const isOpen = openIndex === index;
+        {/* 3 FAQ Accordions */}
+        <div className="space-y-3">
+          {FAQ_3_ITEMS.map((item, idx) => {
+            const isOpen = openIndex === idx;
             return (
               <div
-                key={index}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isOpen
-                    ? 'border-[#2563EB] bg-blue-50/40 shadow-xs'
-                    : 'border-[#E2E8F0] bg-white hover:border-slate-300'
-                }`}
+                key={idx}
+                className="bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-2xs transition-colors"
               >
                 <button
-                  onClick={() => toggleAccordion(index)}
-                  className="w-full px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer"
-                  aria-expanded={isOpen}
+                  type="button"
+                  onClick={() => toggle(idx)}
+                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[#0F2A43] hover:text-[#2563EB] transition-colors cursor-pointer"
                 >
-                  <span
-                    className={`text-sm sm:text-base font-bold transition-colors ${
-                      isOpen ? 'text-[#2563EB]' : 'text-[#0F2A43]'
+                  <span>{item.question}</span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-[#64748B] shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-[#2563EB]' : ''
                     }`}
-                  >
-                    {item.question}
-                  </span>
-                  <div
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-200 ${
-                      isOpen
-                        ? 'rotate-180 bg-blue-100 text-[#2563EB]'
-                        : 'bg-slate-100 text-slate-500'
-                    }`}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
+                  />
                 </button>
-
                 {isOpen && (
-                  <div className="px-5 sm:px-6 pb-5 pt-0 text-xs sm:text-sm text-[#64748B] leading-relaxed border-t border-blue-100/60 mt-1">
-                    <p className="pt-3">{item.answer}</p>
+                  <div className="px-5 pb-4 pt-1 text-xs sm:text-sm text-[#64748B] leading-relaxed border-t border-slate-100">
+                    {item.answer}
                   </div>
                 )}
               </div>

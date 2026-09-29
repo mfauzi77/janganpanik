@@ -2,64 +2,39 @@ import React from 'react';
 import { APP_CONFIG } from '../config/appConfig';
 
 interface FooterProps {
-  onOpenForm: () => void;
+  onOpenForm?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenForm }) => {
+export const Footer: React.FC<FooterProps> = () => {
   return (
-    <footer className="relative bg-[#0F2A43] text-white border-t border-slate-800 pt-14 pb-28 md:pb-16 overflow-hidden">
-      {/* Subtle decorative glow at top of footer */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-cyan-500/10 via-blue-500/5 to-transparent blur-2xl pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <footer className="bg-[#0F2A43] text-white pt-12 pb-16 border-t border-slate-800">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
-        {/* Top: Logo & Menu */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
-          
-          {/* Logo & Tagline */}
-          <div className="text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-[#06B6D4] text-[#0F2A43] flex items-center justify-center font-black text-sm shadow-md">
-                {APP_CONFIG.shortLogo}
-              </span>
-              <span className="text-xl font-black tracking-tight text-white">
-                {APP_CONFIG.brandName}
-              </span>
-            </div>
-            <p className="mt-1.5 text-xs text-slate-300">
-              {APP_CONFIG.tagline}
-            </p>
+        {/* Brand */}
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="w-8 h-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-black text-xs">
+            {APP_CONFIG.shortLogo}
           </div>
-
-          {/* Simple Menu: Beranda, Cara Kerja, Mulai Mediasi, FAQ */}
-          <nav className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm font-medium text-slate-300">
-            <a href="#" className="hover:text-cyan-300 transition-colors">
-              Beranda
-            </a>
-            <a href="#cara-kerja" className="hover:text-cyan-300 transition-colors">
-              Cara Kerja
-            </a>
-            <button
-              onClick={onOpenForm}
-              className="hover:text-cyan-300 transition-colors cursor-pointer"
-            >
-              Mulai Mediasi
-            </button>
-            <a href="#faq" className="hover:text-cyan-300 transition-colors">
-              FAQ
-            </a>
-          </nav>
-
+          <span className="font-extrabold text-lg text-white tracking-tight">
+            {APP_CONFIG.brandName}
+          </span>
         </div>
 
-        {/* Bottom: Disclaimer Singkat & Copyright */}
-        <div className="mt-7 text-center text-xs text-slate-400 leading-relaxed max-w-3xl mx-auto">
-          <p>
-            {APP_CONFIG.brandName} menyediakan layanan informasi, pendampingan komunikasi, dan mediasi. Layanan ini tidak menghapus kewajiban pembayaran dan tidak menjamin hasil tertentu.
+        {/* Tagline */}
+        <p className="text-xs sm:text-sm text-[#06B6D4] font-medium">
+          {APP_CONFIG.tagline}
+        </p>
+
+        {/* Disclaimer */}
+        <div className="mt-6 pt-6 border-t border-slate-800/80 max-w-xl mx-auto">
+          <p className="text-[11px] text-slate-400 leading-relaxed">
+            {APP_CONFIG.disclaimerText}
           </p>
-          <p className="mt-4 text-[11px] text-slate-500 font-mono">
-            © {new Date().getFullYear()} {APP_CONFIG.brandName}. Semua hak dilindungi.
-          </p>
+        </div>
+
+        {/* Copyright */}
+        <div className="mt-6 text-[10px] text-slate-500">
+          © {new Date().getFullYear()} {APP_CONFIG.brandName}. Hak Cipta Dilindungi.
         </div>
 
       </div>
