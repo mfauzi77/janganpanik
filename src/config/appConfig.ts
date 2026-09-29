@@ -40,44 +40,34 @@ export const DELAY_OPTIONS = [
  * Pilihan jenis masalah di form (bagian kesulitan pembayaran dihapus sesuai request)
  */
 export const ISSUE_OPTIONS = [
-  'Penagihan',
-  'Kunjungan lapangan',
+  'Penagihan telepon / pesan',
+  'Kunjungan lapangan / Kolektor',
   'Perselisihan komunikasi',
   'Lainnya',
 ];
 
-/**
- * Format pesan WhatsApp terstruktur:
- * "Halo, saya ingin meminta bantuan mediasi.
- * 
- * Nama:
- * Aplikasi/Pemberi Pinjaman:
- * Keterlambatan:
- * Jenis Masalah:
- * 
- * Cerita:
- * ...
- * 
- * Saya ingin mendapatkan bantuan untuk menjembatani komunikasi dengan pihak penagihan."
- */
 export function generateWhatsAppMessage(data: FormSubmissionData): string {
   const nama = data.nama.trim() || '-';
   const aplikasi = data.aplikasi.trim() || '-';
   const keterlambatan = data.lamaKeterlambatan.trim() || '-';
   const jenisMasalah = data.jenisMasalah.trim() || 'Penagihan';
-  const cerita = data.cerita.trim() || '(Belum diisi)';
+  const cerita = data.cerita.trim() || '(Tidak ada catatan tambahan)';
 
-  return `Halo, saya ingin meminta bantuan mediasi.
+  return `Halo, saya ingin meminta bantuan mediasi penagihan.
 
+📌 DATA SAYA
 Nama: ${nama}
 Aplikasi/Pemberi Pinjaman: ${aplikasi}
 Keterlambatan: ${keterlambatan}
-Jenis Masalah: ${jenisMasalah}
+Jenis masalah: ${jenisMasalah}
 
-Cerita:
+📝 CERITA SINGKAT
 ${cerita}
 
-Saya ingin mendapatkan bantuan untuk menjembatani komunikasi dengan pihak penagihan.`;
+🤝 BANTUAN YANG SAYA BUTUHKAN
+Saya ingin mendapatkan bantuan untuk menjembatani komunikasi dengan pihak penagihan dan mencari solusi komunikasi yang lebih baik.
+
+Terima kasih.`;
 }
 
 /**
